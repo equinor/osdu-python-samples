@@ -38,6 +38,17 @@ Issues = "https://github.com/equinor/osdu-python-samples/issues"
 requires = ["setuptools>=77", "wheel"]
 build-backend = "setuptools.build_meta"
 
+[tool.uv]
+managed = true
+
+# osdu-python-client and osdu-python-models are sibling repos, not yet on a public
+# index — resolve them from local checkouts for development. These `sources` are a
+# dev-only convenience: they are ignored in the built/published wheel, which keeps
+# the plain version specifiers from [project.dependencies].
+[tool.uv.sources]
+osdu-python-client = { path = "../osdu-python-client", editable = true }
+osdu-python-models = { path = "../osdu-python-models", editable = true }
+
 [tool.setuptools.packages.find]
 where = ["src"]
 

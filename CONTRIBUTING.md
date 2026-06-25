@@ -4,17 +4,16 @@ Thanks for your interest in improving the OSDU Python samples.
 
 ## Development setup
 
-```sh
-python -m venv .venv && source .venv/bin/activate
-pip install -e '.[dev]'
-```
-
-For working against unreleased changes in the libraries, install them editable
-alongside this project:
+This project uses [uv](https://docs.astral.sh/uv/):
 
 ```sh
-pip install -e ../osdu-python-client[parquet] -e ../osdu-python-models -e .
+uv sync --extra dev
 ```
+
+`osdu-python-client` and `osdu-python-models` are resolved as editable path
+dependencies from sibling checkouts (`[tool.uv.sources]` in `pyproject.toml`), so
+clone all three under the same parent directory — `uv sync` then picks up your
+local changes to the libraries automatically.
 
 ## Adding a sample
 
@@ -35,8 +34,8 @@ from `ctx.demo` / `ctx.well_log_id`, and use `ctx.require_well_log_id()` /
 ## Checks
 
 ```sh
-ruff check src
-pytest -q   # if/when tests are added
+uv run ruff check src
+uv run pytest -q   # if/when tests are added
 ```
 
 ## Commit conventions

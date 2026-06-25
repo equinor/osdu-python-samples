@@ -9,6 +9,9 @@ build/
 .ruff_cache/
 .DS_Store
 
+# uv (commit uv.lock; ignore the local cache)
+.uv-cache/
+
 # Local config / secrets
 .env
 .env.local

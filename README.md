@@ -38,21 +38,29 @@ dependency of this project).
 
 ## Install
 
+This project uses [uv](https://docs.astral.sh/uv/). `uv sync` creates the
+virtualenv and installs everything (including `osdu-python-client[parquet]`,
+`osdu-python-models`, and the `osdu-samples` command):
+
 ```sh
-python -m venv .venv && source .venv/bin/activate
-pip install -e .
+uv sync                # runtime deps
+uv sync --extra dev    # + ruff/pytest for development
 ```
 
-This installs `osdu-python-client[parquet]`, `osdu-python-models`, and the
-`osdu-samples` command.
+`osdu-python-client` and `osdu-python-models` are resolved from sibling checkouts
+via `[tool.uv.sources]` in `pyproject.toml` (they are not yet on a public index),
+so clone all three under the same parent directory.
 
 ## Running
 
+Prefix commands with `uv run` (or activate the env once with `source .venv/bin/activate`
+after `uv sync` and drop the prefix):
+
 ```sh
-osdu-samples                 # run all read-only samples
-osdu-samples list            # list every sample
-osdu-samples get-welllog     # run one sample
-osdu-samples search-welllogs get-welllog   # run several
+uv run osdu-samples                 # run all read-only samples
+uv run osdu-samples list            # list every sample
+uv run osdu-samples get-welllog     # run one sample
+uv run osdu-samples search-welllogs get-welllog   # run several
 ```
 
 Flags: `--write` enables the opt-in write samples (or set `DEMO_ALLOW_WRITES=true`);
@@ -63,10 +71,10 @@ Flags: `--write` enables the opt-in write samples (or set `DEMO_ALLOW_WRITES=tru
 `ingest-welllog` straight into the read commands:
 
 ```sh
-osdu-samples ingest-welllog --write
+uv run osdu-samples ingest-welllog --write
 # → Created WellLog: dev:work-product-component--WellLog:<new-id>
-osdu-samples get-welllog read-bulk-data bulk-statistics --id dev:work-product-component--WellLog:<new-id>
-osdu-samples delete-welllog --id dev:work-product-component--WellLog:<new-id> --write   # clean up
+uv run osdu-samples get-welllog read-bulk-data bulk-statistics --id dev:work-product-component--WellLog:<new-id>
+uv run osdu-samples delete-welllog --id dev:work-product-component--WellLog:<new-id> --write   # clean up
 ```
 
 ## Reproducing the wide-WellLog timeout
@@ -81,8 +89,8 @@ timeout). The classifier labels each row accordingly (`413` gateway body limit,
 `502/504` upstream timeout, `~10s` DDMS→storage timeout, client/transport hang).
 
 ```sh
-osdu-samples repro-wide-welllog --write                 # default sweep 100,200,400,600,800
-osdu-samples repro-wide-welllog --write --curves 300,400,450,500
+uv run osdu-samples repro-wide-welllog --write                 # default sweep 100,200,400,600,800
+uv run osdu-samples repro-wide-welllog --write --curves 300,400,450,500
 ```
 
 It needs the same write config as `create-welllog` (`DEMO_WELLBORE_ID`,
