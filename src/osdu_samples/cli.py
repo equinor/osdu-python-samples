@@ -16,6 +16,7 @@ from __future__ import annotations
 import argparse
 import sys
 
+from dotenv import load_dotenv
 from osdu_python_client import OsduClient, OsduError, enable_debug_logging
 
 from . import welllogs  # noqa: F401  (registers all samples via import side effect)
@@ -76,6 +77,11 @@ def _run_one(sample: Sample, ctx: SampleContext, allow_writes: bool) -> bool:
 
 
 def main(argv: list[str] | None = None) -> int:
+    # Load `.env` into the environment so the samples' DEMO_* vars are visible.
+    # (osdu-python-client reads .env via pydantic-settings for its own config only,
+    # which does not export these keys to os.environ.)
+    load_dotenv()
+
     args = _build_parser().parse_args(argv)
 
     if args.names == ["list"]:

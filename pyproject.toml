@@ -15,9 +15,10 @@ classifiers = [
     "Topic :: Software Development :: Libraries",
 ]
 dependencies = [
-    "osdu-python-client[parquet]>=0.1",
+    "osdu-python-client[parquet,azure]>=0.1",
     "osdu-python-models>=0.5",
     "pandas>=2.0",
+    "python-dotenv>=1.0",
 ]
 
 [project.optional-dependencies]
