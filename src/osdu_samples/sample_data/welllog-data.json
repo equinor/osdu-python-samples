@@ -1,0 +1,14 @@
+{
+  "WellboreID": "REPLACED-FROM-DEMO-CONFIG:master-data--Wellbore:placeholder:",
+  "Name": "osdu-python-samples bundled WellLog",
+  "Description": "Synthetic WellLog data block for the ingest-welllog sample.",
+  "TopMeasuredDepth": 1234.5,
+  "BottomMeasuredDepth": 2345.6,
+  "SamplingInterval": 0.1,
+  "Curves": [
+    { "CurveID": "MD", "Mnemonic": "MD", "NumberOfColumns": 1, "CurveDescription": "Measured Depth" },
+    { "CurveID": "GR", "Mnemonic": "GR", "NumberOfColumns": 1, "CurveDescription": "Gamma Ray" },
+    { "CurveID": "NPHI", "Mnemonic": "NPHI", "NumberOfColumns": 1, "CurveDescription": "Neutron Porosity" },
+    { "CurveID": "RHOB", "Mnemonic": "RHOB", "NumberOfColumns": 1, "CurveDescription": "Bulk Density" }
+  ]
+}

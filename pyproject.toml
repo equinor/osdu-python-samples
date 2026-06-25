@@ -1,0 +1,52 @@
+[project]
+name = "osdu-python-samples"
+version = "0.1.0"
+description = "Runnable examples of osdu-python-client + osdu-python-models against OSDU Wellbore DDMS well logs"
+readme = "README.md"
+requires-python = ">=3.10"
+license = "Apache-2.0"
+license-files = ["LICENSE"]
+authors = [{ name = "Equinor" }]
+keywords = ["osdu", "wellbore", "ddms", "samples", "welllog"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3",
+    "Topic :: Software Development :: Libraries",
+]
+dependencies = [
+    "osdu-python-client[parquet]>=0.1",
+    "osdu-python-models>=0.5",
+    "pandas>=2.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "ruff>=0.6",
+]
+
+[project.scripts]
+osdu-samples = "osdu_samples.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/equinor/osdu-python-samples"
+Repository = "https://github.com/equinor/osdu-python-samples"
+Issues = "https://github.com/equinor/osdu-python-samples/issues"
+
+[build-system]
+requires = ["setuptools>=77", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+osdu_samples = ["sample_data/*"]
+
+[tool.ruff]
+target-version = "py310"
+line-length = 110
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
