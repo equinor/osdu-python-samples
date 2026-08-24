@@ -29,13 +29,21 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
+      # Both dependencies come from PyPI now, so CI can install what a user would
+      # install. Previously they were pinned to sibling checkouts, which CI could
+      # not resolve -- so nothing here ever imported the client.
+      - name: Install
+        run: uv sync --extra dev --frozen
+
       - name: Lint (ruff)
-        # Run ruff standalone via uvx so we don't have to resolve the project's
-        # runtime dependencies — osdu-python-client and osdu-python-models are
-        # sibling checkouts (see [tool.uv.sources]) and aren't on a public index.
-        run: uvx ruff check src
+        run: uv run ruff check src
+
+      # Smoke test: proves the published client installs and every sample module
+      # imports against it. `list` enumerates the registry without contacting
+      # OSDU, so it needs no credentials. The samples themselves are exercised
+      # against a live instance separately.
+      - name: Smoke test
+        run: uv run osdu-samples list
 
       - name: Build wheel and sdist
-        # Packaging check: the setuptools build backend does not need the runtime
-        # dependencies installed, so this works without the sibling checkouts.
         run: uv build --out-dir dist

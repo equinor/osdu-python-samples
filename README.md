@@ -32,9 +32,8 @@ These samples target **WellLog schema `1.4.0`** (the typed models come from
 
 Bulk data (`/data`) is served by Wellbore DDMS as **Parquet** (the performant
 primary format). The bulk samples use the client's `read_bulk_parquet` /
-`write_bulk_parquet` helpers, which round-trip a `pyarrow.Table` or a pandas
-`DataFrame`; these require the client's `parquet` extra (already pulled in as a
-dependency of this project).
+`write_bulk_parquet` helpers, which round-trip a `pyarrow.Table`; these require
+the client's `parquet` extra (already pulled in as a dependency of this project).
 
 ## Install
 
@@ -47,9 +46,13 @@ uv sync                # runtime deps
 uv sync --extra dev    # + ruff/pytest for development
 ```
 
-`osdu-python-client` and `osdu-python-models` are resolved from sibling checkouts
-via `[tool.uv.sources]` in `pyproject.toml` (they are not yet on a public index),
-so clone all three under the same parent directory.
+`osdu-python-client` and `osdu-python-models` are installed from PyPI like any
+other dependency — no sibling checkouts needed. To try a sample against an
+unreleased library change, point at a local checkout without committing it:
+
+```bash
+uv add --editable ../osdu-python-client
+```
 
 ## Running
 

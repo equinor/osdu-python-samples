@@ -15,9 +15,8 @@ classifiers = [
     "Topic :: Software Development :: Libraries",
 ]
 dependencies = [
-    "osdu-python-client[parquet,azure]>=0.1",
-    "osdu-python-models>=0.5",
-    "pandas>=2.0",
+    "osdu-python-client[parquet,azure]>=0.10",
+    "osdu-python-models>=0.7",
     "python-dotenv>=1.0",
 ]
 
@@ -42,13 +41,14 @@ build-backend = "setuptools.build_meta"
 [tool.uv]
 managed = true
 
-# osdu-python-client and osdu-python-models are sibling repos, not yet on a public
-# index — resolve them from local checkouts for development. These `sources` are a
-# dev-only convenience: they are ignored in the built/published wheel, which keeps
-# the plain version specifiers from [project.dependencies].
-[tool.uv.sources]
-osdu-python-client = { path = "../osdu-python-client", editable = true }
-osdu-python-models = { path = "../osdu-python-models", editable = true }
+# Both dependencies are published on PyPI, so they resolve from the index like any
+# other. They used to be pinned to sibling checkouts here, which meant the samples
+# were only ever exercised against a working copy and never against the artifact a
+# user actually installs — and CI could not resolve them at all.
+#
+# To develop against a local client checkout, add an override locally without
+# committing it:
+#   uv add --editable ../osdu-python-client
 
 [tool.setuptools.packages.find]
 where = ["src"]

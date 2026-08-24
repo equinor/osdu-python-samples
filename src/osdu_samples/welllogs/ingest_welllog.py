@@ -9,10 +9,10 @@ creates the record, then writes bulk Parquet matching the declared curves.
 from __future__ import annotations
 
 import json
+import math
 from importlib import resources
 
-import numpy as np
-import pandas as pd
+import pyarrow as pa
 from osdu_models.workproductcomponent.well_log.v1_4_0 import Data
 
 from ..context import SampleContext
@@ -30,16 +30,17 @@ def _load_data(ctx: SampleContext) -> Data:
     return Data.model_validate(raw)
 
 
-def _synthetic_bulk(data: Data, rows: int = 100) -> pd.DataFrame:
-    """Generate a DataFrame whose columns match the WellLog's curve mnemonics."""
+def _synthetic_bulk(data: Data, rows: int = 100) -> pa.Table:
+    """Generate a Table whose columns match the WellLog's curve mnemonics."""
     mnemonics = [c.Mnemonic or c.CurveID for c in (data.Curves or [])] or ["MD"]
     top = data.TopMeasuredDepth or 0.0
     bottom = data.BottomMeasuredDepth or (top + rows)
-    index = np.linspace(top, bottom, rows)
+    step = (bottom - top) / (rows - 1) if rows > 1 else 0.0
+    index = [top + i * step for i in range(rows)]
     cols = {}
     for i, m in enumerate(mnemonics):
-        cols[m] = index if i == 0 else np.sin(index / 50.0) * (i * 10) + 50
-    return pd.DataFrame(cols)
+        cols[m] = index if i == 0 else [math.sin(x / 50.0) * (i * 10) + 50 for x in index]
+    return pa.table(cols)
 
 
 @sample("ingest-welllog", "Ingest a WellLog (typed schema) and its bulk data from files.", writes=True)
@@ -65,6 +66,6 @@ def run(ctx: SampleContext) -> None:
 
     bulk = _synthetic_bulk(data)
     ctx.osdu.wellbore_ddms.write_bulk_parquet(new_id, bulk)
-    ctx.kv("Wrote bulk rows", len(bulk))
-    ctx.kv("curves", list(bulk.columns))
+    ctx.kv("Wrote bulk rows", bulk.num_rows)
+    ctx.kv("curves", bulk.column_names)
     print(f"\n  Read it back with:  osdu-samples get-welllog read-bulk-data --id {new_id}")
