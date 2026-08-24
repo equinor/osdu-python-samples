@@ -47,9 +47,13 @@ uv sync                # runtime deps
 uv sync --extra dev    # + ruff/pytest for development
 ```
 
-`osdu-python-client` and `osdu-python-models` are resolved from sibling checkouts
-via `[tool.uv.sources]` in `pyproject.toml` (they are not yet on a public index),
-so clone all three under the same parent directory.
+`osdu-python-client` and `osdu-python-models` are installed from PyPI like any
+other dependency — no sibling checkouts needed. To try a sample against an
+unreleased library change, point at a local checkout without committing it:
+
+```bash
+uv add --editable ../osdu-python-client
+```
 
 ## Running
 

@@ -10,10 +10,11 @@ This project uses [uv](https://docs.astral.sh/uv/):
 uv sync --extra dev
 ```
 
-`osdu-python-client` and `osdu-python-models` are resolved as editable path
-dependencies from sibling checkouts (`[tool.uv.sources]` in `pyproject.toml`), so
-clone all three under the same parent directory — `uv sync` then picks up your
-local changes to the libraries automatically.
+`osdu-python-client` and `osdu-python-models` come from PyPI, so this repo stands
+alone. That is deliberate: the samples should exercise the artifact a user
+actually installs. To work against an unreleased library change, add a local
+override without committing it — `uv add --editable ../osdu-python-client` — and
+drop it again before opening a pull request.
 
 ## Adding a sample
 
