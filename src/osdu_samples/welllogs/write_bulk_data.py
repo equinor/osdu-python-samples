@@ -1,13 +1,14 @@
 """write-bulk-data — write bulk curve data to a WellLog, creating a new version.
 
-Builds a small pandas DataFrame (columns = curve mnemonics) and writes it via
-the client's Parquet helper. Requires the `parquet` extra.
+Builds a small pyarrow Table (columns = curve mnemonics) and writes it via the
+client's Parquet helper. Requires the `parquet` extra (which provides pyarrow).
 """
 
 from __future__ import annotations
 
-import numpy as np
-import pandas as pd
+import math
+
+import pyarrow as pa
 
 from ..context import SampleContext
 from ..registry import sample
@@ -18,10 +19,13 @@ def run(ctx: SampleContext) -> None:
     record_id = ctx.require_well_log_id()
 
     rows = 100
-    md = np.linspace(1234.5, 2345.6, rows)
-    df = pd.DataFrame({"MD": md, "GR": np.sin(md / 50.0) * 40 + 80})
+    start, stop = 1234.5, 2345.6
+    step = (stop - start) / (rows - 1)
+    md = [start + i * step for i in range(rows)]
+    gr = [math.sin(x / 50.0) * 40 + 80 for x in md]
+    table = pa.table({"MD": md, "GR": gr})
 
-    ctx.osdu.wellbore_ddms.write_bulk_parquet(record_id, df)
+    ctx.osdu.wellbore_ddms.write_bulk_parquet(record_id, table)
     ctx.kv("Wrote bulk data to", record_id)
     ctx.kv("rows", rows)
-    ctx.kv("columns", list(df.columns))
+    ctx.kv("columns", table.column_names)

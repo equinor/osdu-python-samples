@@ -32,9 +32,8 @@ These samples target **WellLog schema `1.4.0`** (the typed models come from
 
 Bulk data (`/data`) is served by Wellbore DDMS as **Parquet** (the performant
 primary format). The bulk samples use the client's `read_bulk_parquet` /
-`write_bulk_parquet` helpers, which round-trip a `pyarrow.Table` or a pandas
-`DataFrame`; these require the client's `parquet` extra (already pulled in as a
-dependency of this project).
+`write_bulk_parquet` helpers, which round-trip a `pyarrow.Table`; these require
+the client's `parquet` extra (already pulled in as a dependency of this project).
 
 ## Install
 
