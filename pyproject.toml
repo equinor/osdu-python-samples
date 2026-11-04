@@ -16,7 +16,7 @@ classifiers = [
 ]
 dependencies = [
     "osdu-python-client[parquet,azure]>=0.14.0",
-    "osdu-python-models>=0.7",
+    "osdu-python-models>=0.8.1",
     "python-dotenv>=1.0",
 ]
 

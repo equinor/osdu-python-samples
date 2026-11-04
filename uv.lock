@@ -401,14 +401,14 @@ parquet = [
 
 [[package]]
 name = "osdu-python-models"
-version = "0.7.0"
+version = "0.8.1"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "pydantic" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/11/ca/29e815d54be1ecb470a5033722e2c91d20256382afbec5fc85af906b2d7e/osdu_python_models-0.7.0.tar.gz", hash = "sha256:602986ebaf9af9b13829de5e2a3244acd3f174bcfc08dccc7498ac70ecf532e9", size = 624257, upload-time = "2026-08-13T10:15:21.544Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/ab/f5/502e3f3034f9a90c17a92e586fb01a3ac63a7e04c72bb86dc98f7006b642/osdu_python_models-0.8.1.tar.gz", hash = "sha256:08b9875742e7dcfcef680de73dc364be8f9b225a61c037ac770a17e2c7c19200", size = 636453, upload-time = "2026-11-01T13:22:54.348Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/5b/73/bb9e8396b7fc84bd84c8391954cde249b094e76f7654d335aebe11596afa/osdu_python_models-0.7.0-py3-none-any.whl", hash = "sha256:313aeeae122e6013a4c73d7df7208654d7bbcc45702d2eab12817544ecfd3322", size = 1686160, upload-time = "2026-08-13T10:15:19.701Z" },
+    { url = "https://files.pythonhosted.org/packages/9b/db/f2aa8b05aa561b32a8fbbf323384ecd94307e70e9151f42807d49758321e/osdu_python_models-0.8.1-py3-none-any.whl", hash = "sha256:d3add50309c25f86816f1c0672a2d0b208eef2af91fd9f32c6d99c460188580b", size = 1730191, upload-time = "2026-11-01T13:22:52.7Z" },
 ]
 
 [[package]]
@@ -430,7 +430,7 @@ dev = [
 [package.metadata]
 requires-dist = [
     { name = "osdu-python-client", extras = ["parquet", "azure"], specifier = ">=0.14.0" },
-    { name = "osdu-python-models", specifier = ">=0.7" },
+    { name = "osdu-python-models", specifier = ">=0.8.1" },
     { name = "pytest", marker = "extra == 'dev'", specifier = ">=8.0" },
     { name = "python-dotenv", specifier = ">=1.0" },
     { name = "ruff", marker = "extra == 'dev'", specifier = ">=0.6" },
