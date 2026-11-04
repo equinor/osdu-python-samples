@@ -33,17 +33,20 @@ jobs:
       # install. Previously they were pinned to sibling checkouts, which CI could
       # not resolve -- so nothing here ever imported the client.
       - name: Install
-        run: uv sync --extra dev --frozen
+        run: uv sync --extra dev --locked
 
       - name: Lint (ruff)
-        run: uv run ruff check src
+        run: uv run --locked ruff check src tests
+
+      - name: Unit tests
+        run: uv run --locked pytest -q
 
       # Smoke test: proves the published client installs and every sample module
       # imports against it. `list` enumerates the registry without contacting
       # OSDU, so it needs no credentials. The samples themselves are exercised
       # against a live instance separately.
       - name: Smoke test
-        run: uv run osdu-samples list
+        run: uv run --locked osdu-samples list
 
       - name: Build wheel and sdist
         run: uv build --out-dir dist

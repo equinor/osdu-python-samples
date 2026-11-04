@@ -14,8 +14,8 @@ change, add a local override without committing it:
 
 ```sh
 uv sync --extra dev              # install runtime + ruff/pytest
-uv run ruff check src            # lint (rules: E,F,I,UP,B; line-length 110; py311 target)
-uv run pytest -q                 # tests (none yet)
+uv run ruff check src tests      # lint (rules: E,F,I,UP,B; line-length 110; py311 target)
+uv run pytest -q                 # offline unit tests
 uv run pytest tests/test_x.py::test_name   # run a single test once tests exist
 ```
 

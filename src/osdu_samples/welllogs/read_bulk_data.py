@@ -33,5 +33,5 @@ def _print_table(table, max_rows: int = 10) -> None:
 
 def _fmt(value) -> str:
     if isinstance(value, float):
-        return f"{value:.4g}"
+        return f"{value:.10g}"
     return "" if value is None else str(value)
