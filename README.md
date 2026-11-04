@@ -37,6 +37,8 @@ the client's `parquet` extra (already pulled in as a dependency of this project)
 
 ## Install
 
+Python 3.11 or newer is required, matching `osdu-python-client` 0.14+.
+
 This project uses [uv](https://docs.astral.sh/uv/). `uv sync` creates the
 virtualenv and installs everything (including `osdu-python-client[parquet]`,
 `osdu-python-models`, and the `osdu-samples` command):

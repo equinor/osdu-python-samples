@@ -3,7 +3,7 @@ name = "osdu-python-samples"
 version = "0.1.0"
 description = "Runnable examples of osdu-python-client + osdu-python-models against OSDU Wellbore DDMS well logs"
 readme = "README.md"
-requires-python = ">=3.10"
+requires-python = ">=3.11"
 license = "Apache-2.0"
 license-files = ["LICENSE"]
 authors = [{ name = "Equinor" }]
@@ -15,7 +15,7 @@ classifiers = [
     "Topic :: Software Development :: Libraries",
 ]
 dependencies = [
-    "osdu-python-client[parquet,azure]>=0.10",
+    "osdu-python-client[parquet,azure]>=0.14.0",
     "osdu-python-models>=0.7",
     "python-dotenv>=1.0",
 ]
@@ -57,7 +57,7 @@ where = ["src"]
 osdu_samples = ["sample_data/*"]
 
 [tool.ruff]
-target-version = "py310"
+target-version = "py311"
 line-length = 110
 
 [tool.ruff.lint]
