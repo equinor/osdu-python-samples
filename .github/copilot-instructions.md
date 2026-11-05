@@ -6,15 +6,16 @@ keep them small and readable.
 
 ## Environment & commands
 
-Uses [uv](https://docs.astral.sh/uv/). `osdu-python-client` and
-`osdu-python-models` are **editable path dependencies from sibling checkouts**
-(`[tool.uv.sources]` in `pyproject.toml`) — clone all three under the same parent
-directory or `uv sync` will fail to resolve them.
+Uses [uv](https://docs.astral.sh/uv/). `osdu-python-client[parquet,azure]` and
+`osdu-python-models` install **from PyPI** like any other dependency — this repo
+stands alone, no sibling checkouts needed. To exercise an unreleased library
+change, add a local override without committing it:
+`uv add --editable ../osdu-python-client`.
 
 ```sh
 uv sync --extra dev              # install runtime + ruff/pytest
-uv run ruff check src            # lint (rules: E,F,I,UP,B; line-length 110; py310 target)
-uv run pytest -q                 # tests (none yet)
+uv run ruff check src tests      # lint (rules: E,F,I,UP,B; line-length 110; py311 target)
+uv run pytest -q                 # offline unit tests
 uv run pytest tests/test_x.py::test_name   # run a single test once tests exist
 ```
 
