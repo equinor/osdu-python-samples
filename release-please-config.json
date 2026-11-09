@@ -6,6 +6,13 @@
       "package-name": "osdu-python-samples",
       "release-type": "python",
       "include-component-in-tag": false,
+      "extra-files": [
+        {
+          "type": "toml",
+          "path": "uv.lock",
+          "jsonpath": "$.package[?(@.name.value=='osdu-python-samples')].version"
+        }
+      ],
       "changelog-sections": [
         { "type": "feat",     "section": "Features" },
         { "type": "fix",      "section": "Bug Fixes" },
