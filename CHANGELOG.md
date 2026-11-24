@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.2](https://github.com/equinor/osdu-python-samples/compare/v0.1.1...v0.1.2) (2026-11-24)
+
+
+### Dependencies
+
+* bump the github-actions group with 3 updates ([#11](https://github.com/equinor/osdu-python-samples/issues/11)) ([0132e6e](https://github.com/equinor/osdu-python-samples/commit/0132e6e8d55fccbde37dcb2ed1c3b587ab8f750a))
+
 ## [0.1.1](https://github.com/equinor/osdu-python-samples/compare/v0.1.0...v0.1.1) (2026-11-09)
 
 
